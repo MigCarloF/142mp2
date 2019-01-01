@@ -5,36 +5,19 @@ public class BinarySearch {
     public BinarySearch(){}
 
     public int search(int[] arr, int val){
-        int index = arr.length / 2;
-
-        return search(arr, val, index);
+        return search(arr, val, 0, arr.length - 1);
     }
 
-    public int search(int[] arr, int val, int index){
+    public int search(int[] arr, int val, int low, int high){
+        int cmp = low + ((high - low) / 2);
 
-        if(index == 1){
-            if(arr[index - 1] == val){
-                return index - 1;
-            }
+        if (low > high)
             return -1;
-        }
-
-        if(index == arr.length - 1){
-            if(arr[index - 2] == val){
-                return index - 2;
-            }
-            if(arr[index - 1] == val){
-                return index - 1;
-            }
-            return -1;
-        }
-
-        if(val < arr[index - 1])
-            return search(arr, val, index / 2);
-        else if (val > arr[index - 1])
-            return search(arr, val, (arr.length - index) / 2) + index;
+        else if(val < arr[cmp])
+            return search(arr, val, low, cmp - 1);
+        else if (val > arr[cmp])
+            return search(arr, val, cmp + 1, high);
         else
-            return index - 1;
+            return cmp;
     }
-
 }
